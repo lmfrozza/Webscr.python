@@ -10,11 +10,11 @@ edge_options = Options()
 edge_options.add_argument('--headless')
 edge_options.add_argument('--disable-gpu')
 
-browser = wd.Edge() #options=edge_options
+browser = wd.Edge(options=edge_options) #options=edge_options
 def steam():
   
 
-  global nome_steam_texto
+  global nome_jogo
   global preco_steam_texto
   #Abre o link
   browser.get('https://store.steampowered.com/')
@@ -27,7 +27,7 @@ def steam():
    #pesquisa_steam.send_keys(Keys.ENTER)
    preco_steam = browser.find_element('class name', 'match_subtitle')
    nome_steam= browser.find_element('class name', 'match_name ')
-   nome_steam_texto= nome_steam.text
+   nome_jogo= nome_steam.text
    preco_steam_texto = preco_steam.text
   except:
     preco_steam_texto == "Ausente"
@@ -38,31 +38,51 @@ def microsoft_store():
   botao_microsoft = browser.find_element('id', 'search')
   botao_microsoft.click()
   pesquisa_microsoft = browser.find_element('id', 'cli_shellHeaderSearchInput')
-  pesquisa_microsoft.send_keys(nome_steam_texto)
-  sleep(3)
-  url_atual = browser.current_url
   try:
-    (browser.find_element('class name', 'c-menu-item')).click()
+    pesquisa_microsoft.send_keys(nome_jogo)
     sleep(3)
-
-    try:
-      elemento_game_pass = browser.find_element('class name', 'c-group')
+  except: 
+    pesquisa_microsoft.send_keys(Pesquina)
+    sleep(3)
+    # url_atual = browser.current_url
+  (browser.find_element('class name', 'c-menu-item')).click()
+  sleep(6)
+  try:
+      elemento_game_pass = browser.find_element('class name', 'high-contrast')
       preco_microsoft_texto = "29,99/mês (GamePass)"
-    except:
+  except:
+    try:
       xpath = "//div[contains(@class, 'ProductDetailsHeader-module__showOnMobileView___uZ1Dz')]//span[contains(@class, 'Price-module__boldText___vmNHu')]"
       div_containing_span = browser.find_element('class name', 'ProductDetailsHeader-module__showOnMobileView___uZ1Dz')
       span = browser.find_element('xpath', xpath)
       preco_microsoft_texto = span.get_attribute('innerText')
+    except:
+        preco_microsoft_texto = "Ausente"
+
+def GOG():
+  global preco_GOG
+  browser.get('https://www.gog.com/en/games')
+  xpath= '//*[@id="catalogHeader"]/search/form/input'
+  pesquisa_GOG= browser.find_element('xpath', xpath)
+  try:
+    pesquisa_GOG.send_keys(nome_jogo)
+    sleep(3)
+  except: 
+    pesquisa_GOG.send_keys(Pesquina)
+    sleep(3)
+  try:
+    preco= browser.find_element('xpath', '//*[@id="Catalog"]/div/div[2]/paginated-products-grid/div/product-tile/a/div[2]/div[2]/div/product-price/price-value/span[1]')
+    preco_GOG = preco.text
+    sleep(3)
   except:
-    preco_microsoft_texto == "Ausente"
-    
-
-
-
+    preco_GOG = "Ausente"
   
+
 steam()
 microsoft_store()
+GOG()
 browser.quit()
-print(nome_steam_texto)
-print(" no preço da Steam: ", preco_steam_texto)
+print(nome_jogo)
+print("Na loja da Steam: ", preco_steam_texto)
 print("Na microsoft Store: ", preco_microsoft_texto)
+print("Na GOG: ", preco_GOG)
