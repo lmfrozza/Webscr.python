@@ -61,7 +61,7 @@ def microsoft_store():
 
 def GOG():
   global preco_GOG
-  browser.get('https://www.gog.com/en/games')
+  browser.get('https://www.gog.com/pt/games')
   xpath= '//*[@id="catalogHeader"]/search/form/input'
   pesquisa_GOG= browser.find_element('xpath', xpath)
   try:
@@ -86,3 +86,4 @@ print(nome_jogo)
 print("Na loja da Steam: ", preco_steam_texto)
 print("Na microsoft Store: ", preco_microsoft_texto)
 print("Na GOG: ", preco_GOG)
+
