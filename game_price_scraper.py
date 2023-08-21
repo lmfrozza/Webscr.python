@@ -86,4 +86,3 @@ print(nome_jogo)
 print("Na loja da Steam: ", preco_steam_texto)
 print("Na microsoft Store: ", preco_microsoft_texto)
 print("Na GOG: ", preco_GOG)
-
