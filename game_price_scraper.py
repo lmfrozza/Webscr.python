@@ -77,12 +77,30 @@ def GOG():
   except:
     preco_GOG = "Ausente"
   
-
+def PSN():
+  global preco_PSN
+  browser.get('https://store.playstation.com/pt-br/pages/latest')
+  (browser.find_element('class name', 'shared-nav-search-container')).click()
+  pesquisa_PSN = browser.find_element('class name', 'search-text-box__input')
+  try:
+    pesquisa_PSN.send_keys(nome_jogo)
+    sleep(3)
+  except: 
+    pesquisa_PSN.send_keys(Pesquina)
+    sleep(3)
+  (browser.find_element('xpath', '/html/body/div[7]/div/div/div/button[2]')).click()
+  try:
+    preco = browser.find_element('xpath', '//*[@id="main"]/section/div/ul/li[1]/div/a/div/section/div/div/span')
+    preco_PSN = preco.text
+  except:
+    preco_PSN = "Ausente"
 steam()
 microsoft_store()
 GOG()
+PSN()
 browser.quit()
 print(nome_jogo)
 print("Na loja da Steam: ", preco_steam_texto)
 print("Na microsoft Store: ", preco_microsoft_texto)
 print("Na GOG: ", preco_GOG)
+print("Na Playstation Store", preco_PSN)
