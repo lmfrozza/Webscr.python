@@ -23,7 +23,7 @@ This script demonstrates how to use Selenium for web scraping. It navigates thro
    python3 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-   Download the appropriate WebDriver for your browser and operating system (Edge in this case) from Microsoft Edge WebDriver.
+Download the appropriate WebDriver for your browser and operating system (Edge in this case) from Microsoft Edge WebDriver.
 
 ## Usage
 
@@ -39,6 +39,7 @@ This script demonstrates how to use Selenium for web scraping. It navigates thro
     - Steam
     - Microsoft Store
     - GOG
+    - Playstation Store
   I´ll be adding more online stores soon!!
 
 ## Dependencies
