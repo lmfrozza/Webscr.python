@@ -132,5 +132,4 @@ Dados = {
 
 Tabela_dados = pd.DataFrame(Dados)
 print(Tabela_dados)
->>>>>>> Stashed changes
 
