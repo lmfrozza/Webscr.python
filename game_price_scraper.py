@@ -3,7 +3,10 @@ from selenium.webdriver.common.keys import Keys
 from time import sleep
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 Pesquina = input("Digite um titulo ")
 #Define a variavel como sendo uma pagina de Edge
@@ -100,8 +103,9 @@ def PSN():
 steam()
 microsoft_store()
 GOG()
-#PSN()
+PSN()
 browser.quit()
+<<<<<<< Updated upstream
 
 Dados = pd.DataFrame({
   "Game name": [nome_jogo],
@@ -117,4 +121,16 @@ print(Dados)
 #print("Na GOG: ", preco_GOG)
 #print("Na Playstation Store", preco_PSN)
 
+=======
+Dados = {
+  'Jogo: ': nome_jogo,
+  #'Lojas: ': 'Preço',
+  'Steam: ': preco_steam_texto,
+  'Microsoft Store: ': preco_microsoft_texto,
+  'GOG: ': preco_GOG,
+}
+
+Tabela_dados = pd.DataFrame(Dados)
+print(Tabela_dados)
+>>>>>>> Stashed changes
 
