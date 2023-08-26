@@ -11,7 +11,7 @@ edge_options = Options()
 edge_options.add_argument('--headless')
 edge_options.add_argument('--disable-gpu')
 
-browser = wd.Edge() #options=edge_options
+browser = wd.Edge(options=edge_options) #options=edge_options
 
 def steam():
   
@@ -104,28 +104,10 @@ browser.quit()
 
 
 Dados = pd.DataFrame({
-  "Game name": [nome_jogo],
+  "Game name": [nome_jogo, " ", " ", " "],
   "Lojas": ["Steam", "Microsoft Store", "GOG", "Playstation Store"],
-  "Preço": [preco_steam_texto, preco_microsoft_texto, preco_GOG, "preco_PSN"]
+  "Preço": [preco_steam_texto, preco_microsoft_texto, preco_GOG, preco_PSN]
 })
-
-print(Dados)
-
-#print(nome_jogo)
-#print("Na loja da Steam: ", preco_steam_texto)
-#print("Na microsoft Store: ", preco_microsoft_texto)
-#print("Na GOG: ", preco_GOG)
-#print("Na Playstation Store", preco_PSN)
-
-
-Dados = {
-  'Jogo: ': nome_jogo,
-  #'Lojas: ': 'Preço',
-  'Steam: ': preco_steam_texto,
-  'Microsoft Store: ': preco_microsoft_texto,
-  'GOG: ': preco_GOG,
-}
-
 Tabela_dados = pd.DataFrame(Dados)
 print(Tabela_dados)
 
