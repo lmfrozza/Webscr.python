@@ -6,7 +6,7 @@ import pandas as pd
 from kivy.app import App
 from kivy.lang import Builder
 
-GUI = Builder.load_file("tela.kv")
+
 
 
 Pesquina = input("Digite um titulo ")
@@ -16,7 +16,7 @@ edge_options = Options()
 edge_options.add_argument('--headless')
 edge_options.add_argument('--disable-gpu')
 
-browser = wd.Edge(options=edge_options) #options=edge_options
+browser = wd.Edge() #options=edge_options
 
 def steam():
   
@@ -101,16 +101,17 @@ def PSN():
     preco_PSN = preco.text
   except:
     preco_PSN = "Ausente"
-#steam()
-#microsoft_store()
-#GOG()
-#PSN()
+steam()
+microsoft_store()
+GOG()
+PSN()
 browser.quit()
 
-class MyApp(App):
-    def build(self):
-        return GUI
-MyApp().run()
+#GUI = Builder.load_file("tela.kv")
+#class MyApp(App):
+    #def build(self):
+        #return GUI
+#MyApp().run()
 
 
 Dados = pd.DataFrame({
