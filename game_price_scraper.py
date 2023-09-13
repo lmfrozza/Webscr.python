@@ -2,6 +2,12 @@ from selenium import webdriver as wd
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from selenium.webdriver.chrome.options import Options
+import pandas as pd
+from kivy.app import App
+from kivy.lang import Builder
+
+GUI = Builder.load_file("tela.kv")
+
 
 Pesquina = input("Digite um titulo ")
 #Define a variavel como sendo uma pagina de Edge
@@ -11,6 +17,7 @@ edge_options.add_argument('--headless')
 edge_options.add_argument('--disable-gpu')
 
 browser = wd.Edge(options=edge_options) #options=edge_options
+
 def steam():
   
 
@@ -94,13 +101,23 @@ def PSN():
     preco_PSN = preco.text
   except:
     preco_PSN = "Ausente"
-steam()
-microsoft_store()
-GOG()
-PSN()
+#steam()
+#microsoft_store()
+#GOG()
+#PSN()
 browser.quit()
-print(nome_jogo)
-print("Na loja da Steam: ", preco_steam_texto)
-print("Na microsoft Store: ", preco_microsoft_texto)
-print("Na GOG: ", preco_GOG)
-print("Na Playstation Store", preco_PSN)
+
+class MyApp(App):
+    def build(self):
+        return GUI
+MyApp().run()
+
+
+Dados = pd.DataFrame({
+  "Game name": [nome_jogo, " ", " ", " "],
+  "Lojas": ["Steam", "Microsoft Store", "GOG", "Playstation Store"],
+  "Preço": [preco_steam_texto, preco_microsoft_texto, preco_GOG, preco_PSN]
+})
+Tabela_dados = pd.DataFrame(Dados)
+print(Tabela_dados)
+
