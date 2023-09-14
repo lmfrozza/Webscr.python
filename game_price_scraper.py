@@ -69,6 +69,7 @@ def microsoft_store():
 def GOG():
   global preco_GOG
   browser.get('https://www.gog.com/pt/games')
+  (browser.find_element('xpath', '//*[@id="Catalog"]/div/div[1]/filters-wrapper/div/div[1]/div[2]/div/div/div/filters/div/collapsible-section/div[2]/div/label[1]/input')).click()
   xpath= '//*[@id="catalogHeader"]/search/form/input'
   pesquisa_GOG= browser.find_element('xpath', xpath)
   try:
@@ -107,11 +108,11 @@ GOG()
 PSN()
 browser.quit()
 
-#GUI = Builder.load_file("tela.kv")
-#class MyApp(App):
-    #def build(self):
-        #return GUI
-#MyApp().run()
+GUI = Builder.load_file("tela.kv")
+class MyApp(App):
+    def build(self):
+        return GUI
+MyApp().run()
 
 
 Dados = pd.DataFrame({
