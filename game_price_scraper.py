@@ -5,9 +5,7 @@ from selenium.webdriver.chrome.options import Options
 import pandas as pd
 from kivy.app import App
 from kivy.lang import Builder
-
-
-
+from tabulate import tabulate
 
 Pesquina = input("Digite um titulo ")
 #Define a variavel como sendo uma pagina de Edge
@@ -126,8 +124,10 @@ class MyApp(App):
     def on_start(self):
       self.root.ids["dfjogos"].text = self.convertdf(Tabela_dados)
     def convertdf(self, tabela):
-        df_str = tabela.to_string(index=False)
-        return df_str
+        #df_str = tabela.to_string(index=False)
+        #return df_str
+        table = tabulate(tabela, headers='keys', tablefmt='pipe', showindex=False)
+        return table
       
     
 MyApp().run()
