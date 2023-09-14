@@ -16,7 +16,7 @@ edge_options = Options()
 edge_options.add_argument('--headless')
 edge_options.add_argument('--disable-gpu')
 
-browser = wd.Edge() #options=edge_options
+browser = wd.Edge(options=edge_options) #options=edge_options
 
 def steam():
   
@@ -108,11 +108,6 @@ GOG()
 PSN()
 browser.quit()
 
-GUI = Builder.load_file("tela.kv")
-class MyApp(App):
-    def build(self):
-        return GUI
-MyApp().run()
 
 
 Dados = pd.DataFrame({
@@ -120,6 +115,19 @@ Dados = pd.DataFrame({
   "Lojas": ["Steam", "Microsoft Store", "GOG", "Playstation Store"],
   "Preço": [preco_steam_texto, preco_microsoft_texto, preco_GOG, preco_PSN]
 })
-Tabela_dados = pd.DataFrame(Dados)
-print(Tabela_dados)
 
+Tabela_dados = pd.DataFrame(Dados)
+
+
+GUI = Builder.load_file("tela.kv")
+class MyApp(App):
+    def build(self):
+        return GUI
+    def on_start(self):
+      self.root.ids["dfjogos"].text = self.convertdf(Tabela_dados)
+    def convertdf(self, tabela):
+        df_str = tabela.to_string(index=False)
+        return df_str
+      
+    
+MyApp().run()
