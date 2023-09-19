@@ -2,6 +2,10 @@ from selenium import webdriver as wd
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from selenium.webdriver.chrome.options import Options
+import pandas as pd
+from kivy.app import App
+from kivy.lang import Builder
+from tabulate import tabulate
 
 Pesquina = input("Digite um titulo ")
 #Define a variavel como sendo uma pagina de Edge
@@ -11,6 +15,7 @@ edge_options.add_argument('--headless')
 edge_options.add_argument('--disable-gpu')
 
 browser = wd.Edge(options=edge_options) #options=edge_options
+
 def steam():
   
 
@@ -62,6 +67,7 @@ def microsoft_store():
 def GOG():
   global preco_GOG
   browser.get('https://www.gog.com/pt/games')
+  (browser.find_element('xpath', '//*[@id="Catalog"]/div/div[1]/filters-wrapper/div/div[1]/div[2]/div/div/div/filters/div/collapsible-section/div[2]/div/label[1]/input')).click()
   xpath= '//*[@id="catalogHeader"]/search/form/input'
   pesquisa_GOG= browser.find_element('xpath', xpath)
   try:
@@ -99,8 +105,29 @@ microsoft_store()
 GOG()
 PSN()
 browser.quit()
-print(nome_jogo)
-print("Na loja da Steam: ", preco_steam_texto)
-print("Na microsoft Store: ", preco_microsoft_texto)
-print("Na GOG: ", preco_GOG)
-print("Na Playstation Store", preco_PSN)
+
+
+
+Dados = pd.DataFrame({
+  "Game name": [nome_jogo, " ", " ", " "],
+  "Lojas": ["Steam", "Microsoft Store", "GOG", "Playstation Store"],
+  "Preço": [preco_steam_texto, preco_microsoft_texto, preco_GOG, preco_PSN]
+})
+
+Tabela_dados = pd.DataFrame(Dados)
+
+
+GUI = Builder.load_file("tela.kv")
+class MyApp(App):
+    def build(self):
+        return GUI
+    def on_start(self):
+      self.root.ids["dfjogos"].text = self.convertdf(Tabela_dados)
+    def convertdf(self, tabela):
+        #df_str = tabela.to_string(index=False)
+        #return df_str
+        table = tabulate(tabela, headers='keys', tablefmt='pipe', showindex=False)
+        return table
+      
+    
+MyApp().run()
